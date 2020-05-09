@@ -5,7 +5,9 @@ module.exports.create=async function(req,res){
     try{
         console.log(req.body)
         let doctor=await Doctor.findOne({email:req.body.email});
-    
+        if(doctor)
+        res.status(200).json({message:"Doctor is already registered"});
+        
         if(!doctor)
         {
             let newDoctor= await Doctor.create({
@@ -17,8 +19,7 @@ module.exports.create=async function(req,res){
             res.status(200).json({message:"Doctor registered successfully"});
         }
         
-        if(doctor)
-        res.status(200).json({message:"Doctor is already registered"});
+        
     }
     catch(err)
     {
