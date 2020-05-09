@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port=8000;/** On port 80 all website hosts */
 /*app listen to the port*/
-
+const db=require('./config/mongoose');
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
