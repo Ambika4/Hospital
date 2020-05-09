@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ambika4/Hospital/issues"
   },
-  "homepage": "https://github.com/Ambika4/Hospital#readme"
+  "homepage": "https://github.com/Ambika4/Hospital#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
