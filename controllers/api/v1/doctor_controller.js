@@ -1,5 +1,5 @@
 const Doctor=require('../../../models/doctor');
-
+const jwt = require('jsonwebtoken');
 module.exports.create=async function(req,res){
 
     try{
@@ -25,4 +25,13 @@ module.exports.create=async function(req,res){
         res.status(500).json({message:err});
     }
 }
+
+module.exports.createSession = async function(req, res){
+    //console.log(req.cookies);
+     let doctor=await Doctor.findOne({email:req.body.email});
+
+     if(req.body.password==doctor.password){
+     const token = jwt.sign(req.body, 'hospital');
+     return res.json({ token});}
+ }
 
