@@ -1,0 +1,19 @@
+{
+  "name": "hospital",
+  "version": "1.0.0",
+  "description": "An Api for doctors to arrange patients list and their reports",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ambika4/Hospital.git"
+  },
+  "author": "Ambika Kumari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ambika4/Hospital/issues"
+  },
+  "homepage": "https://github.com/Ambika4/Hospital#readme"
+}
