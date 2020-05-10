@@ -16,7 +16,8 @@ module.exports.createReport=async function(req,res){
                 {
                     let report=await Report.create({
                         status:req.body.status,
-                        doctor:doctor.name
+                        doctor:doctor.name,
+                        patient:patient.id
                     })
                     patient.reports.push(report);
                     patient.save();
