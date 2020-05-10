@@ -7,7 +7,7 @@ module.exports.create=async function(req,res){
         let doctor=await Doctor.findOne({email:req.body.email});
         if(doctor)
         res.status(200).json({message:"Doctor is already registered"});
-        
+
         if(!doctor)
         {
             let newDoctor= await Doctor.create({

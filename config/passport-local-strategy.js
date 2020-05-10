@@ -67,7 +67,7 @@ passport.checkAuthentication=function(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
-    //if the employee is not signed in
+ 
     // return res.redirect('/api/v1/employees/');
 }
 
