@@ -10,6 +10,7 @@ const patientController=require('../../../controllers/api/v1/patient_controller'
 router.post('/register',verifyToken,patientController.create);
 
 router.post('/:id/create_report', verifyToken, patientController.createReport);
+router.get('/:id/all_reports',verifyToken,patientController.allReports);
 
 
 module.exports=router;
