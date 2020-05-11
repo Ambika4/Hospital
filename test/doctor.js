@@ -35,9 +35,30 @@ describe('Doctors', () => {
           .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('Doctor registered successfully');
+                res.body.should.have.property('message').eql('Doctor is already registered');
             done();
           });
     });
+});
+
+/*
+  * Test the /doctors/login
+  */
+ describe('/login doctors', () => {
+  it('it should check the created doctor logged in', (done) => {
+        chai.request(server)
+        .post('/api/v1/doctors/login')
+        .send({
+            "email":"kambika1309@gmail.com",
+            "password":123
+        })
+        .end((err, res) => {
+              res.should.have.status(200);
+              res.body.should.be.an('object')
+              res.body.should.have.property('token')
+              token = res.body.token
+          done();
+        });
+  });
 });
 
