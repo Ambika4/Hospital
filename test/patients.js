@@ -97,7 +97,6 @@ it('it should return newly created patient', done => {
      .set('authorization', `bearer ${token}`)
      .send(patient)
      .end((err, res) => {
-       console.log(res.body)
       res.should.have.status(200)
       res.body.should.be.a('object')
       res.body.should.have.property('message').eql('Patient already exist')
@@ -110,3 +109,40 @@ it('it should return newly created patient', done => {
     })
   })
 
+
+describe('/patients/:id/create_report',() =>{
+  it('it should create report for patient of given id by logged in doctor', (done) => {
+  
+      chai
+      .request(server)
+      .post('/api/v1/patients/5eb9a09e9e049839e1a4cf36/create_report')
+      .set('authorization', `bearer ${token}`)
+      .send({
+        status:"Travelled-Quarantine"
+      })
+      .end((err,res)=>{
+        res.should.have.status(200);
+        res.body.should.be.an('object')
+        res.body.report.should.have.property('status')
+        res.body.report.should.have.property('doctor')
+        res.body.report.should.have.property('patient')
+        done()
+      })
+    })
+  
+
+  it('it should give status 403 as accessing without token', (done) => {
+   
+      chai
+      .request(server)
+      .post('/api/v1/patients/5eb9a09e9e049839e1a4cf36/create_report')
+      .send({
+        status:"Travelled-Quarantine"
+      })
+      .end((err,res)=>{
+        res.should.have.status(403);
+        res.body.should.be.an('object')
+        done()
+      })
+    })
+  })
