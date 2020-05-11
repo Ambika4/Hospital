@@ -51,7 +51,7 @@ module.exports.create=async function(req,res){
                 if(patient)
                 {
                     res.status(200).json({
-                    patient:patient,
+                    patient,
                     message:"Patient already exist"});
                 }
             

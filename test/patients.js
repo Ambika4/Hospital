@@ -32,9 +32,11 @@ describe('/login doctors', () => {
           done();
         });
   });
+
 });
 
-describe('/register patient', () => {
+
+describe('/patients/register', () => {
   it('it should return 403 forbidden as accessing without token', done => {
     const patient= {
       mobileNo: 9836531701,
@@ -53,12 +55,12 @@ describe('/register patient', () => {
      })
   
     })
-  })
 
-describe('/register patient', () => {
+
+
 it('it should return newly created patient', done => {
   const patient= {
-    mobileNo: 9836531711,
+    mobileNo: 9836531713,
     name:"Alisha",
     gender:"Female"
   }
@@ -80,9 +82,8 @@ it('it should return newly created patient', done => {
    })
 
   })
-})
 
-describe('/register patient', () => {
+
   it('it should return already existing patient', done => {
     const patient= {
       mobileNo: 9836531710,
@@ -96,14 +97,16 @@ describe('/register patient', () => {
      .set('authorization', `bearer ${token}`)
      .send(patient)
      .end((err, res) => {
+       console.log(res.body)
       res.should.have.status(200)
       res.body.should.be.a('object')
       res.body.should.have.property('message').eql('Patient already exist')
-      res.body.newPatient.should.have.property('name');
-      res.body.newPatient.should.have.property('mobileNo');
-      res.body.newPatient.should.have.property('gender');
+      res.body.patient.should.have.property('name');
+      res.body.patient.should.have.property('mobileNo');
+      res.body.patient.should.have.property('gender');
       done()
      })
   
     })
   })
+
