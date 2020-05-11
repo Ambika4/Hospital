@@ -63,7 +63,7 @@ module.exports.create=async function(req,res){
                         gender:req.body.gender
                     })
                     // console.log(newPatient);
-                    res.status(200).json({message:"Patient registered successfully"});
+                    res.status(200).json({patient,message:"Patient registered successfully"});
                 }
                 
                 

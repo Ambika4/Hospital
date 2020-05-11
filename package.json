@@ -4,8 +4,8 @@
   "description": "An Api for doctors to arrange patients list and their reports",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "test": "mocha --timeout 10000",
+    "start": "set NODE_ENV=dev && nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -21,12 +21,19 @@
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
+    "config": "^1.20.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.13",
+    "morgan": "^1.7.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^7.1.2"
   }
 }

@@ -15,7 +15,7 @@ module.exports.create=async function(req,res){
                 name:req.body.name,
                 password:req.body.password
             })
-            console.log(newDoctor);
+           
             res.status(200).json({message:"Doctor registered successfully"});
         }
         

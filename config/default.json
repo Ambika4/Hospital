@@ -1,0 +1,4 @@
+{
+
+	"DBHost" :"mongodb+srv://ambika:ambika123@cluster0-2hzr8.mongodb.net/hospital_db?retryWrites=true&w=majority"
+}

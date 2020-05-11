@@ -1,7 +1,7 @@
 const Report=require('../../../models/report');
 const jwt = require('jsonwebtoken');
 module.exports.status=async function(req,res){
-    console.log(jwt.verify(req.token,'hospital'))
+   
     try{
         let authData= jwt.verify(req.token,'hospital');
        

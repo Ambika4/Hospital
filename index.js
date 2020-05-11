@@ -1,17 +1,34 @@
 const express = require('express');
 const cookieParser=require('cookie-parser');
 const app = express();
-const port=8000;/** On port 80 all website hosts */
+const port=8080;/** On port 80 all website hosts */
 /*app listen to the port*/
-const db=require('./config/mongoose');
+let morgan = require('morgan');
+const mongoose= require('mongoose');
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const passportJWT=require('./config/passport-jwt-strategy');
 const MongoStore=require('connect-mongo')(session);
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+let config=require('config');
 
 
+  //db connection 
+  
+mongoose.connect(config.DBHost, { useNewUrlParser: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+//up and running then print up and running 
+db.once('open',function(){
+    console.log("successfully connceted to the database");
+});
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+	//use morgan to log at command line
+	app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
 app.use(cookieParser());
 //for parsing body
 app.use(bodyParser.json());
@@ -63,3 +80,5 @@ app.listen(port,function(err){
     }
     console.log(`server is running on port${port}`);
 });
+
+module.exports = app; // for testing
