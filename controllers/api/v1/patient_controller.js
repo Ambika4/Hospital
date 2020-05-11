@@ -34,7 +34,7 @@ module.exports.createReport=async function(req,res){
 
     }catch(err)
     {
-        res.json(403,{message:"Forbidden"})
+        res.status(403).json({message:"Forbidden"});
     }
   
 }
@@ -50,7 +50,7 @@ module.exports.create=async function(req,res){
                 
                 if(patient)
                 {
-                    res.json(200,{
+                    res.status(200).json({
                     patient:patient,
                     message:"Patient already exist"});
                 }
@@ -63,7 +63,7 @@ module.exports.create=async function(req,res){
                         gender:req.body.gender
                     })
                     // console.log(newPatient);
-                    res.status(200).json({patient,message:"Patient registered successfully"});
+                    res.status(200).json({newPatient,message:"Patient registered successfully"});
                 }
                 
                 

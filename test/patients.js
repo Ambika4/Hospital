@@ -14,7 +14,7 @@ const should = chai.should();
 chai.use(chaiHttp);
 
 
-//so that token can be genrated and used firther
+//so that token can be genrated and used further
 describe('/login doctors', () => {
   it('it should check the created doctor logged in', (done) => {
         chai.request(server)
@@ -34,15 +34,35 @@ describe('/login doctors', () => {
   });
 });
 
+describe('/register patient', () => {
+  it('it should return 403 forbidden as accessing without token', done => {
+    const patient= {
+      mobileNo: 9836531701,
+      name:"Alisha",
+      gender:"Female"
+    }
+   
+    chai
+     .request(server)
+     .post('/api/v1/patients/register')
+     .send(patient)
+     .end((err, res) => {
+      res.should.have.status(403)
+      res.body.should.be.an('object')
+      done()
+     })
+  
+    })
+  })
 
 describe('/register patient', () => {
 it('it should return newly created patient', done => {
   const patient= {
-    mobileNo: 9836531704,
+    mobileNo: 9836531711,
     name:"Alisha",
     gender:"Female"
   }
- 
+
   chai
    .request(server)
    .post('/api/v1/patients/register')
@@ -52,9 +72,38 @@ it('it should return newly created patient', done => {
     res.should.have.status(200)
     res.body.should.be.a('object')
     res.body.should.have.property('message').eql('Patient registered successfully')
+    res.body.newPatient.should.have.property('name');
+    res.body.newPatient.should.have.property('mobileNo');
+    res.body.newPatient.should.have.property('gender');
+   
     done()
    })
 
   })
 })
 
+describe('/register patient', () => {
+  it('it should return already existing patient', done => {
+    const patient= {
+      mobileNo: 9836531710,
+      name:"Alisha",
+      gender:"Female"
+    }
+   
+    chai
+     .request(server)
+     .post('/api/v1/patients/register')
+     .set('authorization', `bearer ${token}`)
+     .send(patient)
+     .end((err, res) => {
+      res.should.have.status(200)
+      res.body.should.be.a('object')
+      res.body.should.have.property('message').eql('Patient already exist')
+      res.body.newPatient.should.have.property('name');
+      res.body.newPatient.should.have.property('mobileNo');
+      res.body.newPatient.should.have.property('gender');
+      done()
+     })
+  
+    })
+  })
