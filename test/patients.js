@@ -112,20 +112,22 @@ it('it should return newly created patient', done => {
 
 describe('/patients/:id/create_report',() =>{
   it('it should create report for patient of given id by logged in doctor', (done) => {
-  
+    
       chai
       .request(server)
-      .post('/api/v1/patients/5eb9a09e9e049839e1a4cf36/create_report')
+      .post('/api/v1/patients/5eb9ba4102195b4cd7537771/create_report')
       .set('authorization', `bearer ${token}`)
       .send({
         status:"Travelled-Quarantine"
       })
       .end((err,res)=>{
+       
         res.should.have.status(200);
         res.body.should.be.an('object')
         res.body.report.should.have.property('status')
         res.body.report.should.have.property('doctor')
         res.body.report.should.have.property('patient')
+        
         done()
       })
     })
@@ -146,3 +148,32 @@ describe('/patients/:id/create_report',() =>{
       })
     })
   })
+
+
+  describe('/patients/:id/all_reports',() =>{
+    it('it should fetch all report of the patient with id', (done) => {
+        chai
+        .request(server)
+        .get('/api/v1/patients/5eb9ba4102195b4cd7537771/all_reports')
+        .set('authorization', `bearer ${token}`)
+        .end((err,res)=>{
+          console.log(res.body)
+          res.should.have.status(200);
+          res.body.All_reports.should.be.an('array');
+          done()
+        })
+      })
+    
+  
+    it('it should give status 403 as accessing without token', (done) => {
+     
+        chai
+        .request(server)
+        .get('/api/v1/patients/5eb9a09e9e049839e1a4cf36/all_reports')
+        .end((err,res)=>{
+          res.should.have.status(403);
+          
+          done()
+        })
+      })
+    })
