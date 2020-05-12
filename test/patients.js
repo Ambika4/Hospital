@@ -35,7 +35,7 @@ describe('/login doctors', () => {
 
 });
 
-
+//for /patients/register url
 describe('/patients/register', () => {
   it('it should return 403 forbidden as accessing without token', done => {
     const patient= {
@@ -109,7 +109,7 @@ it('it should return newly created patient', done => {
     })
   })
 
-
+//for /patients/:id/create_report route
 describe('/patients/:id/create_report',() =>{
   it('it should create report for patient of given id by logged in doctor', (done) => {
     
@@ -137,7 +137,7 @@ describe('/patients/:id/create_report',() =>{
    
       chai
       .request(server)
-      .post('/api/v1/patients/5eb9a09e9e049839e1a4cf36/create_report')
+      .post('/api/v1/patients/5eb9ba4102195b4cd7537771/create_report')
       .send({
         status:"Travelled-Quarantine"
       })
@@ -149,7 +149,7 @@ describe('/patients/:id/create_report',() =>{
     })
   })
 
-
+//for /patients/:id/all_reports route
   describe('/patients/:id/all_reports',() =>{
     it('it should fetch all report of the patient with id', (done) => {
         chai
@@ -169,7 +169,7 @@ describe('/patients/:id/create_report',() =>{
      
         chai
         .request(server)
-        .get('/api/v1/patients/5eb9a09e9e049839e1a4cf36/all_reports')
+        .get('/api/v1/patients/5eb9ba4102195b4cd7537771/all_reports')
         .end((err,res)=>{
           res.should.have.status(403);
           

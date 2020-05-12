@@ -2,13 +2,17 @@ const Patient=require('../../../models/patient');
 const Doctor=require('../../../models/doctor');
 const Report=require('../../../models/report');
 const jwt = require('jsonwebtoken');
+
+//create report
 module.exports.createReport=async function(req,res){
     try{
+        //verify whether doctor is logged in then create report
         let authData= jwt.verify(req.token,'hospital');
        
         if(authData){
             try{
-       
+                
+                //Extract the details of doctor who is creating report by token
                let doctor=await Doctor.findOne({email:authData.email});
                let patient=await Patient.findById(req.params.id);
               
@@ -41,13 +45,14 @@ module.exports.createReport=async function(req,res){
 
 module.exports.create=async function(req,res){
     try{
+         //verify whether doctor is logged in then create report
         let authData= jwt.verify(req.token,'hospital');
         if(authData){
             try{
-                console.log(authData);
+                
        
                 let patient=await Patient.findOne({mobileNo:req.body.mobileNo});
-                
+                //check if patient is already there by its mobileNo
                 if(patient)
                 {
                     res.status(200).json({
@@ -77,12 +82,14 @@ module.exports.create=async function(req,res){
 
     }catch(err)
     {
+        //if not token the forbidden
         res.json(403,{message:"Forbidden"})
     }
 }
 
 module.exports.allReports=async function(req,res){
     try{
+         //verify whether doctor is logged in then create report
         let authData= jwt.verify(req.token,'hospital');
        
         if(authData){
